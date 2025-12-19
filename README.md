@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+# Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Profile Icon](./src/assets/image2.png)
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [About the Author](#author)
+- [Reflection](#reflection)
 
-## React Compiler
+## <a name="author"></a>About The Authors
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **[Christian Blunt](https://www.linkedin.com/in/christiangblunt/)**
 
-## Expanding the ESLint configuration
+## <a name="reflection"></a>Reflection
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. How did you handle optional props in your components?
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+I handled optional props by explicitly marking them as optional in the TypeScript interfaces using the `?` or ternary operator. When consuming these props inside components, I provided sensible default values either through default parameters or conditional rendering. This ensured that components behaved predictably even when certain props were omitted, and it prevented runtime errors caused by undefined values.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. What considerations did you make when designing the component interfaces?
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+When designing component interfaces, I focused on clarity, reusability, and separation of concerns. Each interface was scoped to only the data and callbacks the component truly needed, avoiding unnecessary coupling. I also aimed to keep interfaces intuitive by using descriptive prop names and grouping related data together, which made the components easier to understand and reuse across the application.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. How did you ensure type safety across your components?
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Type safety was ensured by defining shared types and interfaces in a central location and importing them wherever needed. I avoided using `any` and relied on strict TypeScript checks to catch mismatches early. Function props were typed with clear parameter and return types, ensuring that data flowed correctly between parent and child components without ambiguity.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 4. What challenges did you face when implementing component composition?
+
+One of the main challenges in component composition was balancing flexibility with simplicity. Passing props through multiple layers of components sometimes required careful interface design to avoid prop drilling or super complex types. Another challenge was ensuring that composed components remained independent and reusable while still working seamlessly together within other higher-level components.
